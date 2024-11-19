@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaÇoNaRiA - Gamers Hardware Virtual Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="{{ url_for('index') }}">MaÇoNaRiA - Gamers Hardware Virtual Store</a></h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('categoria', categoria='Placa de Vídeo') }}">Placa de Vídeo</a>
+                <a href="{{ url_for('categoria', categoria='Processador') }}">Processador</a>
+                <a href="{{ url_for('categoria', categoria='Teclado') }}">Teclado</a>
+                <a href="{{ url_for('categoria', categoria='Mouse') }}">Mouse</a>
+                <a href="{{ url_for('carrinho') }}">Carrinho</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section class="intro">
+                <h2>Bem-vindo à MaÇoNaRiA - Gamers Hardware Virtual Store</h2>
+                <p>A melhor loja virtual para gamers. Encontre o hardware perfeito para seu setup!</p>
+            </section>
+            <section class="destaques">
+                <h2>Produtos em Destaque</h2>
+                <div class="produtos">
+                    {% for produto in produtos %}
+                        <div class="produto">
+                            <img src="{{ url_for('static', filename='imagens/' + produto.imagem) }}" alt="{{ produto.nome }}">
+                            <h3>{{ produto.nome }}</h3>
+                            <p class="preco">R$ {{ produto.preco }}</p>
+                            <p>{{ produto.descricao }}</p>
+                            <a href="{{ url_for('produto', produto_id=produto.id) }}" class="ver-mais-btn">Ver Mais</a>
+                            <a href="#" class="comprar-btn">Adicionar ao Carrinho</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% if session.get('is_admin') %}
+            <div class="admin-actions">
+                <a href="{{ url_for('adicionar_produto') }}" class="adicionar-btn">Adicionar Produto</a>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 MaÇoNaRiA - Gamers Hardware Virtual Store</p>
+    </footer>
+</body>
+</html>

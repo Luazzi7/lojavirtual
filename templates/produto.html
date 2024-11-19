@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ produto.nome }} - MaÇoNaRiA - Gamers Hardware Virtual Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="{{ url_for('index') }}">MaÇoNaRiA - Gamers Hardware Virtual Store</a></h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('categoria', categoria='Placa de Vídeo') }}">Placa de Vídeo</a>
+                <a href="{{ url_for('categoria', categoria='Processador') }}">Processador</a>
+                <a href="{{ url_for('categoria', categoria='Teclado') }}">Teclado</a>
+                <a href="{{ url_for('categoria', categoria='Mouse') }}">Mouse</a>
+                <a href="{{ url_for('carrinho') }}">Carrinho</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="produto-detalhes-container">
+            <h2>{{ produto.nome }}</h2>
+            <div class="produto-detalhes">
+                <div class="produto-imagem">
+                    <img src="{{ url_for('static', filename='imagens/' + produto.imagem) }}" alt="{{ produto.nome }}">
+                </div>
+                <div class="produto-informacoes">
+                    <p class="preco">Preço: R$ {{ produto.preco }}</p>
+                    <p>{{ produto.descricao }}</p>
+                    <div class="botoes">
+                        <a href="#" class="comprar-btn">Adicionar ao Carrinho</a>
+                        {% if session.get('is_admin') %}
+                        <a href="{{ url_for('editar_produto', produto_id=produto.id) }}" class="editar-btn">Editar</a>
+                        <a href="{{ url_for('remover_produto', produto_id=produto.id) }}" class="remover-btn">Remover</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 MaÇoNaRiA - Gamers Hardware Virtual Store</p>
+    </footer>
+</body>
+</html>
